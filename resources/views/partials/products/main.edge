@@ -1,0 +1,75 @@
+<main class="pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 order-md-2 col-lg-9">
+        <div class="container-fluid">
+          <div class="row">
+            @if(products.length === 0)
+              <span class="text-center mt-5">Não há produtos para mostrar</span>
+            @endif
+            @if(products.length > 0)
+              @each(product in products)
+                <div class="col-sm-6 col-md-3 mb-4 mx-2">
+                  <div class="card h-100 border-0">
+
+                    <div class="card-img-top">
+                      <img
+                        src={{product.productImage[0].url}}
+                        class="img-fluid mx-auto d-block"
+                        alt="Card image cap"
+                      />
+                    </div>
+                    <div class="card-body text-center">
+                      <h5 class="card-title">
+                        <a href="{{product.url}}" class="small text-dark">
+                          {{product.title}}</a
+                        >
+                      </h5>
+                      <h4 class="card-price font-weight-bold text-body">
+                        R${{product.price}}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              @end
+            @endif
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 order-md-1 col-lg-3 sidebar-filter">
+        <h3 class="mt-0 mb-5">Confira nossos produtos</h3>
+        <h6 class="text-uppercasefw-bold mb-3">Categorias</h6>
+        <form method="GET">
+          <div class="mt-2 mb-2 pl-2">
+            @if(categories.length > 0)
+              @each(category in categories)
+                <div class="custom-control custom-checkbox d-flex align-items-center">
+                  <input type="radio" class="custom-control-input" {{category.id === currentCategory ? 'checked' : ''}}
+                    id={{'category-input-' + category.id}} name={{'categoria'}} value={{category.id}}>
+                  <label class="custom-control-label mx-1"
+                    for={{'category-input-' + category.id}}>{{category.title}}</label>
+                </div>
+              @end
+            @endif
+            <div class="custom-control custom-checkbox d-flex align-items-center">
+              <input type="radio" class="custom-control-input" {{currentCategory === 0  ? 'checked' : ''}}
+                id="category-input-all" name='categoria' value={{0}} >
+              <label class="custom-control-label mx-1"
+                for="category-input-all">todas</label>
+            </div>
+          </div>
+          <div class="divider mt-3 mb-3 border-bottom border-secondary"></div>
+          <h6 class="text-uppercasefw-bold mb-3">Página</h6>
+          <select class="form-select" name="pagina">
+            @if(pagesIndex.length > 0)
+              @each(page in pagesIndex)
+                <option value={{page}} {{page === currentPage ? 'selected' : ''}}>{{page}}</option>
+              @endeach
+            @endif
+          </select>
+          <button type="submit" class="btn btn-lg w-100 btn-primary mt-5">Mostrar Resultados</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

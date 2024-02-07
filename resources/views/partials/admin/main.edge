@@ -1,0 +1,111 @@
+<main class="pt-5 pb-5" style="min-height: 80vh;">
+  <div class="container">
+    <div class="row w-100">
+      <div class="col-lg-12 col-md-12 col-12">
+        <div class="d-flex justify-content-between mb-3">
+          <h3 class="display-6 mb-2">Administração de produtos</h3>
+          <button
+            data-bs-toggle="modal" data-bs-target="#adminProductModal"
+            class="btn btn-lg bg-success text-light btn-md mb-2">
+            Adicionar
+            <i class="fas fa-plus ms-1"></i>
+          </button>
+        </div>
+        <table id="adminProductTable"
+          class="table table-condensed table-responsive">
+          <thead>
+            <tr>
+              <th style="width:60%">Produto</th>
+              <th style="width:10%">Preço</th>
+              <th style="width:16%">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(products.length === 0)
+              <span class="text-center mt-5">Não há produtos para mostrar</span>
+            @endif
+            @if(products.length > 0)
+              @each(product in products)
+                <tr>
+                  <td data-th="Product">
+                    <div class="row">
+                      <div class="col-md-3 text-start">
+                        <img src={{product.productImage[0].url}}
+                          alt=""
+                          height="100"
+                          width="100"
+                          class="img-fluid d-none d-md-block rounded mb-2 shadow ">
+                      </div>
+                      <div class="col-md-9 text-start mt-sm-2">
+                        <h4>{{product.title}}</h4>
+                        <p class="font-weight-light">{{product.description}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-th="Price">R${{product.price}}</td>
+                  <td class="actions" data-th="">
+                    <div class="text-end">
+                        <a
+                        href={{product.url}}
+                        target="__blank"
+                        class="btn bg-primary text-light btn-md mb-2">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                      <a
+                        href={{'/admin/editar/' + product.id}}
+                        class="btn bg-info text-light btn-md mb-2">
+                        <i class="fas fa-pen"></i>
+                      </a>
+                      <a
+                        href={{'/admin/deletar/' + product.id}}
+                        class="btn bg-danger text-light btn-md mb-2">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              @end
+            @endif
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12 order-md-1 col-lg-12 mt-2">
+      <form method="GET" class="d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Filtrar resultados</h5>
+        <div class="d-flex align-items-center">
+          <h6 class="text-uppercasefw-bold m-0 me-2">Categorias: </h6>
+          @if(categories.length > 0)
+            @each(category in categories)
+              <div class="custom-control custom-checkbox d-flex align-items-center">
+                <input type="radio" class="custom-control-input" {{category.id === currentCategory ? 'checked' : ''}}
+                  id={{'category-input-' + category.id}} name={{'categoria'}} value={{category.id}}>
+                <label class="custom-control-label mx-1"
+                  for={{'category-input-' + category.id}}>{{category.title}}</label>
+              </div>
+            @end
+          @endif
+          <div class="custom-control custom-checkbox d-flex align-items-center">
+            <input type="radio" class="custom-control-input" {{currentCategory === 0  ? 'checked' : ''}}
+              id="category-input-all" name='categoria' value={{0}} >
+            <label class="custom-control-label mx-1"
+              for="category-input-all">todas</label>
+          </div>
+        </div>
+        <div class="d-flex align-items-start">
+          <h6 class="text-uppercasefw-bold m-0 me-2 align-self-center">Página: </h6>
+          <select class="form-select" name="pagina">
+            @if(pagesIndex.length > 0)
+              @each(page in pagesIndex)
+                <option value={{page}} {{page === currentPage ? 'selected' : ''}}>{{page}}</option>
+              @endeach
+            @endif
+          </select>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-lg btn-primary">Filtrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

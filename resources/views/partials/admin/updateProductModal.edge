@@ -1,0 +1,54 @@
+<div class="modal d-flex" id="adminProductModal" tabindex="-1" role="dialog" data-show="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edição de produto</h5>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/produto/{{product.id}}?_method=PUT" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="productTitle" class="col-form-label">Titulo:</label>
+            <input type="text" class="form-control" id="productTitle" name="title" value="{{product.title}}">
+          </div>
+          <div class="mb-3">
+            <label for="productDescription" class="col-form-label">Descrição:</label>
+            <textarea class="form-control" id="productDescription" rows="3" name="description" required>{{product.description}}</textarea>
+          </div>
+          <div class="mb-3">
+            <label for="productPrice" class="col-form-label">Preço:</label>
+            <input type="text" class="form-control" id="productPrice" name="price" value={{product.price}} required>
+          </div>
+          <div class="mb-3">
+            <label for="productCategory" class="col-form-label">Categoria:</label>
+            <select class="form-select" name="category" id="productCategory">
+              @if(categories.length > 0)
+                @each(category in categories)
+                  <option name="category" value={{category.id}} {{product.category_id === category.id ? 'selected' : ''}}>
+                    {{category.title}}
+                  </option>
+                @endeach
+              @endif
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="productImages" class="form-label">Imagens:</label>
+            <input class="form-control" type="file" id="productImages" accept="image/*" name="images" required multiple modal-input-images>
+            <div class="d-flex justify-content-start flex-wrap" modal-node-images>
+              @if(product.productImage.length > 0)
+                @each(image in product.productImage)
+                  <div class="modal-input-image-container">
+                    <img class="modal-input-image mt-2 me-2 img-fluid" fileName={{image.title}} src="{{image.url}}">
+                  </div>
+                @endeach
+              @endif
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="/admin" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

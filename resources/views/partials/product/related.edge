@@ -1,0 +1,37 @@
+<section class="pt-5 pb-5">
+  @if(relatedProducts.length > 0)
+    <div class="container">
+      <h4 class="text-left font-weight-light mb-5">Produtos Relacionados</h4>
+    </div>
+    <div class="cards text-dark">
+      <div class="cards-overlay">
+        <div class="container">
+          <div class="row d-flex equal">
+            @each(product in relatedProducts)
+              <div class="col-sm-6 col-md-3 mb-4">
+                <div class="card h-100 border-0">
+                  <div class="related-products card-img-top">
+                    <img
+                      src={{product.productImage[0].url}}
+                      class="img-fluid mx-auto d-block"
+                      alt="Card image cap"
+                    />
+                  </div>
+                  <div class="card-body text-center">
+                    <h5 class="card-title">
+                      <a href={{product.url}} class="small text-dark">
+                        {{product.title}}</a
+                      >
+                    </h5>
+                    <h4 class="card-price font-weight-bold text-body">
+                      R${{product.price}}
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            @end
+        </div>
+      </div>
+    </div>
+  @endif
+</section>

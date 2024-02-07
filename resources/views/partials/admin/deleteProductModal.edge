@@ -1,0 +1,21 @@
+<div class="modal d-flex" tabindex="-1" role="dialog" data-show="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" modal-node-title>Exclusão de produto</h5>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/produto/{{product.id}}?_method=DELETE">
+          <div class="mb-3">
+            <p>Tem certeza que deseja excluir o produto? <strong>{{product.title}}</strong></p>
+          </div>
+          <div class="modal-footer">
+            <a type="button" class="btn btn-secondary" href="/admin">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Excluir</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

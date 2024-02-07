@@ -1,0 +1,47 @@
+<main class="pt-5 pb-5" style={{!relatedProducts || relatedProducts.length === 0 ? 'min-height:80vh'  : null}}>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <div class="d-block mt-3">
+          <img class="img-fluid product-highlight-image"
+            height="200"
+            width="400"
+            src={{product.productImage[0].url}}>
+        </div>
+        <div class="product-thumbnails d-flex justify-content-start flex-wrap">
+          @each(image in product.productImage)
+            <a href="#">
+              <img class="mt-2 me-2 img-fluid product-image"
+                height="100"
+                width="100"
+                src={{image.url}}>
+            </a>
+          @end
+        </div>
+      </div>
+      <div class="col-md-6 mt-5 mt-md-2 text-center text-md-start d-flex justify-content-between flex-column">
+        <div class="mt-5">
+          <h2 class="mb-3 mt-0">{{product.title}}</h2>
+          <p class="lead mt-2 mb-3 primary-color">
+            R${{product.price}}
+          </p>
+          <h5 class="mt-4">Descrição</h5>
+          <p>{{product.description}}</p>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="quantitySelect">Quantidate:</label>
+            <input id="quantitySelect" type="number"
+              class="form-control quantity mb-4 mt-1" name="" value="1">
+          </div>
+          <div class="col-6 d-flex align-items-center justify-content-end">
+            <a href="#"
+            class="btn btn-lg btn-primary">Comprar Produto</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
